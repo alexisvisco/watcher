@@ -1,12 +1,14 @@
 {
-  "name": "watcher",
-  "version": "1.0.2",
-  "description": "Execute a script when file in a dir change !",
+  "name": "watchit-proj",
+  "version": "1.0.1",
+  "description": "",
   "bin": {
     "watcher": "app.js"
   },
-  "main": "app.js",
-
+  "main" : "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AlexisVisco/Watcher.git"
@@ -19,6 +21,6 @@
   "homepage": "https://github.com/AlexisVisco/Watcher#readme",
   "dependencies": {
     "changing": "^1.0.2",
-    "chokidar": "^1.7.0",
+    "node-watch": "^0.5.5"
   }
 }
