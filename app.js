@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const watch = require('node-watch')
 const exec = require('child_process').exec
 
