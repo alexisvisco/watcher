@@ -25,7 +25,6 @@ process.argv.forEach(function (val, index, array) {
         script = val
     if (index == 4)
         isWindows = true;
-    console.log(index + " : " + val)
 });
 
 watch(dir, { recursive: true }, function (evt, name) {
