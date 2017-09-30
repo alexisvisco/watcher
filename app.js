@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 const { exec } = require('child_process')
-const [dir, script, isWindows = false, time_inteval = 3] = process.argv.slice(2)
+const [dir, script, isWindows = true, time_inteval = 3] = process.argv.slice(2)
 const chokidar = require('chokidar');
+
+console.log(isWindows);
 
 let proc = undefined
 let id
