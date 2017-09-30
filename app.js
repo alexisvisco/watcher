@@ -13,8 +13,7 @@ let lastChanged = 0
 let upToDate = true
 
 process.argv.forEach(function (val, index, array) {
-    if (index == 2 && val === "help")
-    {
+    if (index == 2 && val === "help") {
         helpMessage()
         process.exit()
     }
@@ -58,20 +57,19 @@ function fileChangeMessage() {
     console.log('==========================================')
 }
 
-function helpMessage()
-{
+function helpMessage() {
     console.log("watchit-proj <directory to check in absolute> <script to launch> [true if windows]")
 }
+
 function launchScript() {
     console.log('Launch script %s !', script)
 
     if (proc)
         proc.kill('SIGINT')
     proc = exec((!isWindows ? 'sh ' : '') + script, function (error, stdout, stderr) {
-        console.log('stdout: ' + stdout)
-        console.log('stderr: ' + stderr)
+        console.log('Output script ' + stdout)
         if (error !== null) {
-            console.log('exec error: ' + error)
+            console.log('Error: ' + error)
         }
     })
 }
