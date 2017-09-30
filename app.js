@@ -1,56 +1,25 @@
 #!/usr/bin/env node
 
-const watch = require('node-watch')
-const exec = require('child_process').exec
+const { exec } = require('child_process')
+const [dir, script, isWindows = false, time_inteval = 3] = process.argv.slice(2)
+const chokidar = require('chokidar');
 
-const TIME_INTERVAL = 5
-const TIME_CHECK = 5000
+let proc = undefined
+let id
 
-let proc
-let dir
-let script
-let isWindows = false
+if (dir === "help") {
+    helpMessage()
+    process.exit()
+}
 
-let lastChanged = 0
-let upToDate = true
+launchScript(true)
 
-process.argv.forEach(function (val, index, array) {
-    if (index == 2 && val === "help") {
-        helpMessage()
-        process.exit()
-    }
-    if (index == 2)
-        dir = val
-    if (index == 3)
-        script = val
-    if (index == 4)
-        isWindows = true;
-});
-
-watch(dir, { recursive: true }, function (evt, name) {
-
-    const current = (new Date).getTime()
-    const diff = new Date(current - lastChanged).getSeconds()
-    upToDate = false;
-    if (lastChanged == 0 || (diff >= TIME_INTERVAL)) {
-        fileChangeMessage()
-        launchScript()
-        upToDate = true
-    }
-    if (diff !== 0)
-        lastChanged = current
-    else
-        upToDate = true
-});
-
-setInterval(() => {
-    const current = (new Date).getTime();
-    const diff = new Date(current - lastChanged).getSeconds();
-    if (diff >= 1 && !upToDate) {
-        launchScript()
-        upToDate = true
-    }
-}, TIME_CHECK)
+const watcher = chokidar.watch(dir, { ignored: /(^|[\/\\])\../, ignoreInitial: true })
+    .on('all', (path, stats) => {
+        if (id)
+            clearTimeout(id)
+        id = setTimeout(launchScript, time_inteval * 1000)
+    });
 
 function fileChangeMessage() {
     console.log('==========================================')
@@ -58,17 +27,23 @@ function fileChangeMessage() {
     console.log('==========================================')
 }
 
-function helpMessage() {
-    console.log("watchit-proj <directory to check in absolute> <script to launch> [true if windows]")
+function beginStart() {
+    console.log('==========================================')
+    console.log('             Start script...')
+    console.log('==========================================')
 }
 
-function launchScript() {
-    console.log('Launch script %s !', script)
+function helpMessage() {
+    console.log("Watcher > watcher <directory to check in absolute> <script to launch> [put true if windows os] [time interval in seconds].")
+    console.log("Watcher > <> = required, [] = optional.")
+}
 
+function launchScript(isBegin) {
+    isBegin ? beginStart() : fileChangeMessage()
     if (proc)
         proc.kill('SIGINT')
     proc = exec((!isWindows ? 'sh ' : '') + script, function (error, stdout, stderr) {
-        console.log('Output script ' + stdout)
+        console.log(' \n' + stdout)
         if (error !== null) {
             console.log('Error: ' + error)
         }
