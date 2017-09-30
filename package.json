@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "",
   "bin": {
-    "watchit": "app.js"
+    "watcher": "app.js"
   },
   "main" : "app.js",
   "scripts": {
