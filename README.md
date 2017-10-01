@@ -2,9 +2,13 @@
 Execute a script when file in a dir change ! 
 
 ## Install
-1. git clone https://github.com/AlexisVisco/Watcher/
-2. npm -g install (as administrator)
+1. Clone the repository where you want `git clone https://github.com/AlexisVisco/Watcher/`
+2. Install in global mode the npm repository as administrator `npm -g install` 
+3. Generate a config where you want `watcher generate-config`
+4. Use watcher start or watcher and the path of the configuration file you want !
+5. `<3`
 
 ## Commands 
 - Watcher help
-- Watcher <directory to check in absolute> <script to launch when file change> {true if windows os}
+- watcher generate-config
+- Watcher <start | file destination of the configuration file in absolute>
