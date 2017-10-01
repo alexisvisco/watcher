@@ -9,6 +9,6 @@ Execute a script when file in a dir change !
 5. `<3`
 
 ## Commands 
-- Watcher help
+- watcher help
 - watcher generate-config
-- Watcher <start | file destination of the configuration file in absolute>
+- watcher <start | file destination of the configuration file in absolute>
