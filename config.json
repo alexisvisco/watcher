@@ -1,6 +1,6 @@
 {
     "directory" : "",
-    "command" : "/media/alexis/Workspace/Intellij WorkSpace/watcher/run.sh",
+    "command" : "echo Welcome, change the command in the config file !",
     "log_folder" : "log directory in absolute",
     "excluded_files" : [".xml"],
     "time_interval" : 3

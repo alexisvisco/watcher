@@ -17,7 +17,9 @@ if (arg1 === "help" || arg1 === undefined) {
 }
 else if (arg1 === "generate-config") {
     const file = path.join(process.cwd(), 'config_watcher.json')
-    fs.writeFileSync(file, JSON.stringify(require('./config.json'), null, 2), 'utf-8');
+    const js = require('./config.json')
+    js.directory = process.cwd()
+    fs.writeFileSync(file, JSON.stringify(js, null, 2), 'utf-8');
     console.log("You have successfully generated a configuration file !")
     process.exit()
 }
@@ -130,8 +132,11 @@ function launchScript(isBegin) {
  */
 function killProcess()
 {
-    logStream.close()
-    logStream = getLogStream()
+    if (logStream)
+    {
+        logStream.close()
+        logStream = getLogStream()
+    }
     if(os.platform() === 'win32')
         proc.exec('taskkill /pid ' + ps.pid + ' /T /F')
     else
